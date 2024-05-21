@@ -71,9 +71,9 @@ if __name__ == "__main__":
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.01)
-    optimizers = {"SGD": SGD,
-                  "Nesterov": SGD,
-                  "Momentum": SGD, }
+    optimizers = {"SGD": SGD,}
+                  #"Nesterov": SGD,
+                  #"Momentum": SGD, }
     # "Adam": Adam,
     # "RMSprop": RMSprop,
     # "Adagrad": Adagrad}
@@ -96,7 +96,7 @@ if __name__ == "__main__":
                                 "Adagrad": {"learning_rate": [0.001, 0.0001, 0.00001],
                                             "initial_accumulator_value": [0.1, 0.05, 0.25]}}
     # epochs = [8, 64, 512]
-    epochs = [2, 8]
+    epochs = [2]
     try:
         os.mkdir("results")
     except FileExistsError:
@@ -134,6 +134,7 @@ if __name__ == "__main__":
     print("Minimum Loss Value by Epochs amount: ")
     for epochs, data in overall_results.items():
         epo_min_keys = sorted(data, key=lambda k: data[k][0])[:3]
+        print(epo_min_keys)
         print(f" Epochs: {epochs}")
         for key in epo_min_keys:
-            print(f"  Optimizer: {epo_min_keys}, Loss: {data[epo_min_keys][0]}, Configuration:{data[epo_min_keys][1]}")
+            print(f"  Optimizer: {key}, Loss: {data[key][0]}, Configuration:{data[key][1]}")
